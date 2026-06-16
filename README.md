@@ -21,6 +21,10 @@ Latest release: [GitHub Releases](https://github.com/hipszkij/hambar-app/release
 ## Release notes
 
 <!-- release-notes:start -->
+### 1.0 — 2026-06-16
+- Initial public release
+- Developer ID signed and notarized macOS app
+- Home Assistant menu bar panel with entities and scripts
 <!-- release-notes:end -->
 
 ## Pro license
@@ -35,6 +39,7 @@ Purchase a lifetime license on the [website](https://hambar.info). Enter the lic
 
 ```bash
 ./scripts/release.sh
+./scripts/push-release.sh
 ```
 
-Use `./scripts/release.sh --help` for options (`--skip-gh`, `--dry-run`, etc.).
+Use `./scripts/release.sh --help` and `./scripts/push-release.sh --help` for options.

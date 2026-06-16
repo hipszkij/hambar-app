@@ -244,8 +244,7 @@ Done.
   URL:     https://github.com/${GITHUB_REPO}/releases/download/${TAG}/${ZIP_NAME}
 
 Next steps:
-  1. cd hambar-app && git add README.md && git commit -m "Release ${VERSION}" && git push
-  2. cd hambar-homebrew && git add Casks/hambar.rb && git commit -m "Update hambar cask to ${VERSION}" && git push
-  3. Test: brew tap hipszkij/hambar https://github.com/hipszkij/hambar-homebrew && brew install --cask hambar
+  1. ./scripts/push-release.sh
+  2. Test: brew tap hipszkij/hambar https://github.com/hipszkij/hambar-homebrew && brew install --cask hambar
 
 EOF
