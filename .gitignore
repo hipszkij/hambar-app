@@ -1,0 +1,11 @@
+# Local build output (export notarized HAmbar.app here before release)
+builds/
+
+# Release tooling state (next version, draft notes)
+.version/
+
+# Generated release artifacts
+dist/
+*.zip
+
+.DS_Store
