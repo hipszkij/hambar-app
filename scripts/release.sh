@@ -13,6 +13,7 @@ VERSION_DIR="${APP_REPO_ROOT}/.version"
 NEXT_VERSION_FILE="${VERSION_DIR}/next"
 README_FILE="${APP_REPO_ROOT}/README.md"
 CASK_FILE="${MONOREPO_ROOT}/hambar-homebrew/Casks/hambar.rb"
+WEBSITE_RELEASES_FILE="${MONOREPO_ROOT}/website/src/content/releases.ts"
 GITHUB_REPO="hipszkij/hambar-app"
 
 SKIP_GH=false
@@ -158,6 +159,104 @@ else:
     readme_path.write_text(updated, encoding="utf-8")
 PY
 
+python3 - "${README_FILE}" "${WEBSITE_RELEASES_FILE}" "${DRY_RUN}" <<'PY'
+import json
+import pathlib
+import re
+import sys
+
+readme_path = pathlib.Path(sys.argv[1])
+out_path = pathlib.Path(sys.argv[2])
+dry_run = sys.argv[3].lower() == "true"
+
+start = "<!-- release-notes:start -->"
+end = "<!-- release-notes:end -->"
+text = readme_path.read_text(encoding="utf-8")
+
+if start not in text or end not in text:
+    raise SystemExit(f"README missing release notes markers in {readme_path}")
+
+middle = text.split(start, 1)[1].split(end, 1)[0].strip()
+releases: list[tuple[str, str, list[str]]] = []
+
+for block in re.split(r"\n\n+", middle):
+    block = block.strip()
+    if not block:
+        continue
+    header = re.match(r"### ([^\s]+) — (\d{4}-\d{2}-\d{2})", block)
+    if not header:
+        continue
+    version, date = header.groups()
+    notes = [
+        line[2:].strip()
+        for line in block.splitlines()[1:]
+        if line.strip().startswith("- ")
+    ]
+    if not notes:
+        raise SystemExit(f"Release {version} has no bullet notes in README")
+    releases.append((version, date, notes))
+
+if not releases:
+    raise SystemExit(f"No releases found in {readme_path}")
+
+items = []
+for version, date, notes in releases:
+    note_lines = ",\n".join(f'      {json.dumps(note)}' for note in notes)
+    items.append(
+        "  {\n"
+        f'    version: {json.dumps(version)},\n'
+        f'    date: {json.dumps(date)},\n'
+        f"    notes: [\n{note_lines},\n    ],\n"
+        "  }"
+    )
+
+content = """import { site } from "./site";
+
+export type Release = {
+  version: string;
+  date: string;
+  notes: string[];
+};
+
+/** Synced from hambar-app README by ./scripts/release.sh */
+export const releases: Release[] = [
+"""
+content += ",\n".join(items)
+content += """,
+];
+
+export function formatReleaseDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+export function releaseTag(version: string): string {
+  return `v${version}`;
+}
+
+export function releasePageUrl(version: string): string {
+  return `${site.homebrew.releasesRepo}/releases/tag/${releaseTag(version)}`;
+}
+
+export function releaseDownloadUrl(version: string): string {
+  return `${site.homebrew.releasesRepo}/releases/download/${releaseTag(version)}/HAmbar-${version}.zip`;
+}
+"""
+
+if dry_run:
+    print(f"Would update website releases: {out_path} ({len(releases)} entries)")
+else:
+    out_path.write_text(content, encoding="utf-8")
+PY
+
+if [[ "${DRY_RUN}" == false ]]; then
+  log "Updated website releases: ${WEBSITE_RELEASES_FILE}"
+fi
+
 if [[ "${SKIP_CASK}" == false ]]; then
   if [[ "${DRY_RUN}" == true ]]; then
     log "Would update cask: ${CASK_FILE}"
@@ -245,6 +344,7 @@ Done.
 
 Next steps:
   1. ./scripts/push-release.sh
-  2. Test: brew tap hipszkij/hambar https://github.com/hipszkij/hambar-homebrew && brew install --cask hambar
+  2. Deploy website (hambar.info) so /releases reflects the new notes
+  3. Test: brew tap hipszkij/hambar https://github.com/hipszkij/hambar-homebrew && brew trust hipszkij/hambar && brew install --cask hambar
 
 EOF

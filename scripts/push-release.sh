@@ -230,6 +230,7 @@ Done.
 Test install:
   brew untap hipszkij/hambar 2>/dev/null
   brew tap hipszkij/hambar https://github.com/hipszkij/hambar-homebrew
+  brew trust hipszkij/hambar
   brew install --cask hambar
 
 EOF

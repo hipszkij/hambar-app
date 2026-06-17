@@ -9,6 +9,7 @@ Home Assistant in your Mac menu bar — entities, scripts, and connection status
 
 ```bash
 brew tap hipszkij/hambar https://github.com/hipszkij/hambar-homebrew
+brew trust hipszkij/hambar
 brew install --cask hambar
 ```
 
@@ -21,6 +22,12 @@ Latest release: [GitHub Releases](https://github.com/hipszkij/hambar-app/release
 ## Release notes
 
 <!-- release-notes:start -->
+### 1.1 — 2026-06-17
+- Improved connection stability and automatic recovery after network changes.
+
+### 1.1 — 2026-06-17
+- -
+
 ### 1.0 — 2026-06-16
 - Initial public release
 - Developer ID signed and notarized macOS app
