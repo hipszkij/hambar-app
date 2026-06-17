@@ -25,9 +25,6 @@ Latest release: [GitHub Releases](https://github.com/hipszkij/hambar-app/release
 ### 1.1 — 2026-06-17
 - Improved connection stability and automatic recovery after network changes.
 
-### 1.1 — 2026-06-17
-- -
-
 ### 1.0 — 2026-06-16
 - Initial public release
 - Developer ID signed and notarized macOS app
