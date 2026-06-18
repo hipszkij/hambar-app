@@ -22,6 +22,9 @@ Latest release: [GitHub Releases](https://github.com/hipszkij/hambar-app/release
 ## Release notes
 
 <!-- release-notes:start -->
+### 1.3 — 2026-06-18
+- -
+
 ### 1.2 — 2026-06-18
 - Climate entity management is now available in the menu bar panel and Settings.
 - Control target temperature, HVAC mode, and fan intensity from the expanded panel.
