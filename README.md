@@ -23,7 +23,8 @@ Latest release: [GitHub Releases](https://github.com/hipszkij/hambar-app/release
 
 <!-- release-notes:start -->
 ### 1.3 — 2026-06-18
-- -
+- Mac App Store build with StoreKit lifetime Pro purchase and restore.
+- Direct download continues to use Lemon Squeezy license keys.
 
 ### 1.2 — 2026-06-18
 - Climate entity management is now available in the menu bar panel and Settings.
