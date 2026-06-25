@@ -22,6 +22,12 @@ Latest release: [GitHub Releases](https://github.com/hipszkij/hambar-app/release
 ## Release notes
 
 <!-- release-notes:start -->
+### 1.4 — 2026-06-25
+- Camera snapshots in the menu bar panel: live preview, separate window, and full screen.
+- 24-hour temperature history chart — tap a temperature sensor in the panel.
+- New UI languages: German, Spanish, French, Italian, and Russian.
+- Clearer Remote URL labeling in Connection settings for away-from-home servers.
+
 ### 1.3 — 2026-06-18
 - Mac App Store build with StoreKit lifetime Pro purchase and restore.
 - Direct download continues to use Lemon Squeezy license keys.
