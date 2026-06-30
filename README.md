@@ -22,6 +22,12 @@ Latest release: [GitHub Releases](https://github.com/hipszkij/hambar-app/release
 ## Release notes
 
 <!-- release-notes:start -->
+### 1.5 — 2026-06-30
+- Global keyboard shortcuts: toggle the panel, per-camera quick look, and camera overview grid.
+- Camera quick look floating window and two-column camera overview (Pro).
+- Minimum macOS version lowered to 14.0.
+- App Store StoreKit purchase flow improvements (loading state and retry).
+
 ### 1.4 — 2026-06-25
 - Camera snapshots in the menu bar panel: live preview, separate window, and full screen.
 - 24-hour temperature history chart — tap a temperature sensor in the panel.
